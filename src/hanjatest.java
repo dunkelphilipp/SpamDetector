@@ -4,6 +4,8 @@ public class hanjatest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 System.out.println("Hello World");
+System.out.println("hello Ece");
+System.out.println("hello Phiiiiiliiiipppppppppp");
 	}
 
 }
