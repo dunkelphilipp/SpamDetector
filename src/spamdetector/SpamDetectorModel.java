@@ -13,7 +13,6 @@ public class SpamDetectorModel {
     }
     
     //Schnittstelle zum abrufen von E-Mails einfügen 
-
     public String getMessage() {
         return message;
     }
