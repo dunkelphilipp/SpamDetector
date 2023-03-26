@@ -1,0 +1,67 @@
+/* @charset "UTF-8";*/
+
+/* standard Button properties */
+.button {
+	-fx-pref-width: 100px;
+	-fx-pref-height: 25px;
+}
+
+/* table cells */
+.table-row-cell {
+	-fx-border-color: black;
+	-fx-border-width: 0 0 1 0;
+}
+.table-view {
+	-fx-table-cell-border-color: black;
+}
+
+/* root properties */
+#root {
+	-fx-background-color: white;
+	-fx-pref-width: 900px;
+	-fx-pref-height: 600px;
+}
+
+/* topBar properties */
+#topBar {
+	-fx-padding: 10px 10px;
+}
+
+/* spamLbl properties */
+#spamLbl {
+	-fx-font-size: 18px;
+}
+
+/* lowerBar properties */
+#lowerBar {
+	-fx-padding: 10px 0px;
+}
+
+/* Table column properties */
+#firstNameClm {
+	-fx-pref-width: 100px;
+}
+#lastNameClm {
+	-fx-pref-width: 100px;
+}
+#eMailClm {
+	-fx-pref-width: 250px;
+}
+#subjectClm {
+	-fx-pref-width: 400px;
+}
+#spamClm {
+	-fx-pref-width: 50px;
+}
+
+/* change text color */
+.root {
+	-fx-text-fill: black;
+}
+.spam {
+	-fx-text-fill: red;
+}
+
+.noSpam {
+	-fx-text-fill: green;
+}
