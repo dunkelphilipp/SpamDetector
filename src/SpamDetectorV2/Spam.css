@@ -34,7 +34,7 @@
 
 /* lowerBar properties */
 #lowerBar {
-	-fx-padding: 10px 0px;
+	-fx-padding: 10px 10px;
 }
 
 /* Table column properties */
