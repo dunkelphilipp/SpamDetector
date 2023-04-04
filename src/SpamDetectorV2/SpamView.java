@@ -9,6 +9,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 public class SpamView {
@@ -28,15 +30,16 @@ public class SpamView {
 	
 	//center
 	protected TableView table;
-	protected TableColumn firstNameClm;
-	protected TableColumn lastNameClm;
-	protected TableColumn eMailClm;
+	protected TableColumn senderClm;
+	protected TableColumn recipientClm;
 	protected TableColumn subjectClm;
+	protected TableColumn contentClm;
 	protected TableColumn spamClm;
 	
 	//bottom
 	protected HBox lowerBar;
 	protected Label spamLbl;
+	protected Label scoreLbl;
 	protected Button deleteSpamBtn;
 	
 	//constructor SpamView
@@ -59,27 +62,41 @@ public class SpamView {
 		//https://docs.oracle.com/javafx/2/ui_controls/table-view.htm
 		table = new TableView();
 		//table.setEditable(true); ??????
-		firstNameClm = new TableColumn("First Name");
-		firstNameClm.setId("firstNameClm");
-		lastNameClm = new TableColumn("Last Name");
-		lastNameClm.setId("lastNameClm");
-		eMailClm = new TableColumn("E-Mail Adress");
-		eMailClm.setId("eMailClm");
+		senderClm = new TableColumn("Sender");
+		senderClm.setId("senderClm");
+		recipientClm = new TableColumn("Recipient");
+		recipientClm.setId("recipientClm");
 		subjectClm = new TableColumn("Subject");
 		subjectClm.setId("subjectClm");
-		spamClm = new TableColumn("Spam");
+		contentClm = new TableColumn("E-Mail Content");
+		contentClm.setId("contentClm");
+		spamClm = new TableColumn("Spam Score");
 		spamClm.setId("spamClm");
-		table.getColumns().addAll(firstNameClm, lastNameClm, eMailClm, subjectClm, spamClm);
+		table.getColumns().addAll(senderClm, recipientClm, subjectClm, contentClm, spamClm);
 		
 		//bottom elements
 		lowerBar = new HBox();
 		lowerBar.setId("lowerBar");
-		Region spacer = new Region();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
+		Region spacer1 = new Region();
+		HBox.setHgrow(spacer1, Priority.ALWAYS);
+		Region spacer2 = new Region();
+		HBox.setHgrow(spacer2, Priority.ALWAYS);
 		spamLbl = new Label("Add E-Mails");
 		spamLbl.setId("spamLbl");
+		scoreLbl = new Label();
+		//" 1: low Spampotential 2: medium Spampotential 3: high Spampotential"
+		scoreLbl.setId("scoreLbl");
+		TextFlow scoreFlow = new TextFlow();
+		Text text1 = new Text("1: low Spampotential ");
+		text1.setId("text1");
+		Text text2 = new Text("2: medium Spampotential ");
+		text2.setId("text2");
+		Text text3 = new Text("3: high Spampotential");
+		text3.setId("text3");
+		scoreFlow.getChildren().addAll(text1, text2, text3);
+		scoreLbl.setGraphic(scoreFlow);
 		deleteSpamBtn = new Button("Delete Spam");
-		lowerBar.getChildren().addAll(spamLbl, spacer, deleteSpamBtn);
+		lowerBar.getChildren().addAll(spamLbl, spacer1, scoreLbl, spacer2, deleteSpamBtn);
 		
 		//root Borderpane
 		root = new BorderPane();

@@ -18,7 +18,7 @@
 /* root properties */
 #root {
 	-fx-background-color: white;
-	-fx-pref-width: 900px;
+	-fx-pref-width: 1000px;
 	-fx-pref-height: 600px;
 }
 
@@ -27,31 +27,43 @@
 	-fx-padding: 10px 10px;
 }
 
-/* spamLbl properties */
-#spamLbl {
-	-fx-font-size: 18px;
-}
-
 /* lowerBar properties */
 #lowerBar {
 	-fx-padding: 10px 10px;
+	-fx-alligment: center;
+}
+#spamLbl {
+	-fx-font-size: 18px;
+}
+#scoreLbl {
+	-fx-aligment: center;
+	-fx-content-display: center;
+}
+#text1 {
+	-fx-fill: green;
+}
+#text2 {
+	-fx-fill: orange;
+}
+#text3 {
+	-fx-fill: red;
 }
 
 /* Table column properties */
-#firstNameClm {
+#senderClm {
 	-fx-pref-width: 100px;
 }
-#lastNameClm {
+#recipientClm {
 	-fx-pref-width: 100px;
-}
-#eMailClm {
-	-fx-pref-width: 250px;
 }
 #subjectClm {
-	-fx-pref-width: 400px;
+	-fx-pref-width: 350px;
+}
+#contentClm {
+	-fx-pref-width: 350px
 }
 #spamClm {
-	-fx-pref-width: 50px;
+	-fx-pref-width: 100px;
 }
 
 /* change text color */
