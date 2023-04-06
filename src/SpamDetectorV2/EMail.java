@@ -48,6 +48,11 @@ public class EMail {
 	public String getBody() {
 		return body;
 	}
+
+	public void setSpamScore(int spamScore) {
+		this.spamScore = spamScore;
+	}
+	
 	
 	//Jsoup parse
 	//Method to read EMail attributes from HTML File 
