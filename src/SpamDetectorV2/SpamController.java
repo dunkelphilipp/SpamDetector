@@ -1,5 +1,8 @@
 package SpamDetectorV2;
 
+import java.util.Iterator;
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -9,8 +12,11 @@ public class SpamController implements EventHandler<ActionEvent>{
 	private final SpamView view;
 	private final SpamModel model;
 	
+	EMail mail;
+	
 	//constructor
 	protected SpamController (SpamView view, SpamModel model) {
+		
 		//reference view and model objects
 		this.model = model;
 		this.view = view;
@@ -29,14 +35,29 @@ public class SpamController implements EventHandler<ActionEvent>{
 		
 		if (b == view.addBtn) {
 			model.add();
+			view.table.setItems(model.getMailList());
+			
 		} else if (b == view.deleteBtn) {
 			
-		} else if (b == view.deleteAllBtn) {
-			
-		} else if (b == view.checkBtn) {
+			view.deleteBtn.setOnAction(event -> {
+				
+				EMail selectedItem = view.table.getSelectionModel().getSelectedItem();
+				
+				if (selectedItem != null) {
+		                model.mails.remove(selectedItem);
+		                
+		            }
+		        });	
+		} 
+		else if (b == view.deleteAllBtn) {
+			model.mails.clear();
+		} 
+		else if (b == view.checkBtn) {
 			model.checkSpam();
-		} else if (b == view.deleteSpamBtn) {
+		} 
+		else if (b == view.deleteSpamBtn) {
 			
 		}
 	}
+
 }

@@ -15,6 +15,7 @@
 	-fx-table-cell-border-color: black;
 }
 
+
 /* root properties */
 #root {
 	-fx-background-color: white;
@@ -50,11 +51,12 @@
 }
 
 /* Table column properties */
+/*
 #senderClm {
-	-fx-pref-width: 100px;
+	-fx-pref-width: 350px;
 }
 #recipientClm {
-	-fx-pref-width: 100px;
+	-fx-pref-width: 350px;
 }
 #subjectClm {
 	-fx-pref-width: 350px;
