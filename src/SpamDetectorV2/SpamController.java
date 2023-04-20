@@ -1,5 +1,8 @@
 package SpamDetectorV2;
 
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 
 import javafx.collections.ObservableList;
@@ -27,6 +30,7 @@ public class SpamController implements EventHandler<ActionEvent>{
 		view.deleteAllBtn.setOnAction(this::handle);
 		view.checkBtn.setOnAction(this::handle);
 		view.deleteSpamBtn.setOnAction(this::handle);
+		view.openEmail.setOnAction(this::handle);
 	}
 
 	@Override
@@ -58,6 +62,12 @@ public class SpamController implements EventHandler<ActionEvent>{
 		else if (b == view.deleteSpamBtn) {
 			
 		}
+		else if(b == view.openEmail) {
+		
+		    view.openEmail.setOnAction(event ->{
+		    	
+		    });
+		}
+	
 	}
-
 }

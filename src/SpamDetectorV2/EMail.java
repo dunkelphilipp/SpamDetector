@@ -1,6 +1,7 @@
 package SpamDetectorV2;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -18,9 +19,10 @@ public class EMail {
     private String sender;
     private String recipient;
     private String subject;
-
+    
     private String body;
     private int spamScore;
+    
 
     // Constructor for E-Mail objects
     protected EMail(String sender, String recipient, String subject) {
@@ -29,6 +31,7 @@ public class EMail {
         this.recipient = recipient;
         this.subject = subject;
 //        this.body = body;
+
     }
 
     // Getter and Setter E-Mail attributes
@@ -48,13 +51,10 @@ public class EMail {
         return subject;
     }
 
-//    public String getBody() {
-//    	return body;
-//    }
-
     public void setSpamScore(int spamScore) {
         this.spamScore = spamScore;
     }
+
 
     // Method to read EMail attributes from HTML File
     public static EMail fromFile(String fileName) {
@@ -81,10 +81,6 @@ public class EMail {
         String withSubjectKey =  d.select("p:contains(Subject)").first().text();
         String subject = withSubjectKey.substring(withSubjectKey.indexOf(" "), withSubjectKey.length());
 
-//      String withBodyKey = d.select("p:contains(Body)").first().text();
-//      String body = withBodyKey.substring(withBodyKey.indexOf(" "), withBodyKey.length());
-        
-        
         System.out.println(sender);
         System.out.println(recipient);
         System.out.println(subject);

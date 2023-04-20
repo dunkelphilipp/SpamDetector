@@ -9,6 +9,9 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -64,9 +67,8 @@ public class SpamModel {
                 this.htmlFileName = htmlFile.getAbsolutePath();
                 System.out.println("Die HTML-Datei wurde erstellt: " + htmlFile.getName());
 
-                // this.mail = mail.fromFile(htmlFileName);
-                //this.mails = getEmails();
                 try {
+                	
                 	
                     EMail email = EMail.fromFile(htmlFileName);
                     mails.add(email);

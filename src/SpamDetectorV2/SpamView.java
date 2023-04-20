@@ -30,13 +30,13 @@ public class SpamView {
 	protected Button deleteBtn;
 	protected Button deleteAllBtn;
 	protected Button checkBtn;
+	protected Button openEmail;
 	
 	//center
 	protected TableView<EMail> table;
 	protected TableColumn senderClm;
 	protected TableColumn recipientClm;
 	protected TableColumn subjectClm;
-	//protected TableColumn contentClm;
 	protected TableColumn spamClm;
 	
 	//bottom
@@ -61,12 +61,12 @@ public class SpamView {
 		deleteBtn = new Button("Delete");
 		deleteAllBtn = new Button("Delete all");
 		checkBtn = new Button("Check Spam");
-		topBar.getChildren().addAll(addBtn, deleteBtn, deleteAllBtn, checkBtn);
+		openEmail = new Button("Open E-Mail");
+		
+		topBar.getChildren().addAll(addBtn, deleteBtn, deleteAllBtn, checkBtn, openEmail);
 		
 		//center elements
-		//https://docs.oracle.com/javafx/2/ui_controls/table-view.htm
-		//table = new TableView();
-		//TableView<EMail> table = new TableView<>(email);
+
 		table = new TableView<EMail>();
 		
 		TableColumn<EMail, String> senderClm= new TableColumn<>("Sender");
@@ -83,10 +83,6 @@ public class SpamView {
 		subjectClm.setCellValueFactory(new PropertyValueFactory<EMail, String>("subject"));
 		
 		
-//		TableColumn<EMail, String> contentClm = new TableColumn<>("E-Mail Content");
-//		contentClm.setId("contentClm");
-//		contentClm.setCellValueFactory(new PropertyValueFactory<EMail, String>("body"));
- 
 		/*
 		TableColumn<EMail, String> spamClm = new TableColumn<>("Spam Score");
 		spamClm.setId("spamClm");
@@ -145,6 +141,7 @@ public class SpamView {
 		stage.setTitle("Spam Detector");
 
 	}
+
 
 	//start method
 	public void start() {
