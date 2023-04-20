@@ -1,0 +1,79 @@
+/* @charset "UTF-8";*/
+
+/* standard Button properties */
+.button {
+	-fx-pref-width: 100px;
+	-fx-pref-height: 25px;
+}
+
+/* table cells */
+.table-row-cell {
+	-fx-border-color: black;
+	-fx-border-width: 0 0 1 0;
+}
+.table-view {
+	-fx-table-cell-border-color: black;
+}
+
+/* root properties */
+#root {
+	-fx-background-color: white;
+	-fx-pref-width: 1000px;
+	-fx-pref-height: 600px;
+}
+
+/* topBar properties */
+#topBar {
+	-fx-padding: 10px 10px;
+}
+
+/* lowerBar properties */
+#lowerBar {
+	-fx-padding: 10px 10px;
+	-fx-alligment: center;
+}
+#spamLbl {
+	-fx-font-size: 18px;
+}
+#scoreLbl {
+	-fx-aligment: center;
+	-fx-content-display: center;
+}
+#text1 {
+	-fx-fill: green;
+}
+#text2 {
+	-fx-fill: orange;
+}
+#text3 {
+	-fx-fill: red;
+}
+
+/* Table column properties */
+#senderClm {
+	-fx-pref-width: 100px;
+}
+#recipientClm {
+	-fx-pref-width: 100px;
+}
+#subjectClm {
+	-fx-pref-width: 350px;
+}
+#contentClm {
+	-fx-pref-width: 350px
+}
+#spamClm {
+	-fx-pref-width: 100px;
+}
+
+/* change text color */
+.root {
+	-fx-text-fill: black;
+}
+.spam {
+	-fx-text-fill: red;
+}
+
+.noSpam {
+	-fx-text-fill: green;
+}
