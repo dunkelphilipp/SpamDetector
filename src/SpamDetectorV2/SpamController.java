@@ -1,6 +1,5 @@
 package SpamDetectorV2;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -38,6 +37,8 @@ public class SpamController implements EventHandler<ActionEvent>{
 		Button b = (Button) e.getSource();
 		
 		if (b == view.addBtn) {
+			
+			model.chooseEmlFile();
 			model.add();
 			view.table.setItems(model.getMailList());
 			
@@ -65,6 +66,9 @@ public class SpamController implements EventHandler<ActionEvent>{
 		else if(b == view.openEmail) {
 		
 		    view.openEmail.setOnAction(event ->{
+		    	
+		    	EMail selected = view.table.getSelectionModel().getSelectedItem();
+		    	
 		    	
 		    });
 		}
