@@ -71,24 +71,33 @@ public class EMail {
 
         // parse HTML elements as String in d
         Document d = Jsoup.parse(htmlEmail.toString());
-        
-        String withFromKey = d.select("p:contains(From)").first().text();
-        String sender = withFromKey.substring(withFromKey.indexOf(" "), withFromKey.length());
-        
-        String withToKey = d.select("p:contains(To)").first().text();
-        String recipient = withToKey.substring(withToKey.indexOf(" "), withToKey.length());
-        
-        String withSubjectKey =  d.select("p:contains(Subject)").first().text();
-        String subject = withSubjectKey.substring(withSubjectKey.indexOf(" "), withSubjectKey.length());
+
+        Element fromElement = d.select("p:contains(From: )").first();
+        String sender = "";
+        if (fromElement != null) {
+            String withFromKey = fromElement.text();
+            sender = withFromKey.substring(withFromKey.indexOf(" ") +1);
+        }
+
+        Element toElement = d.select("p:contains(To: )").first();
+        String recipient = "";
+        if (toElement != null) {
+            String withToKey = toElement.text();
+            recipient = withToKey.substring(withToKey.indexOf(" ") + 1);
+        }
+
+        Element subjectElement = d.select("p:contains(Subject: )").first();
+        String subject = "";
+        if (subjectElement != null) {
+            String withSubjectKey = subjectElement.text();
+            subject = withSubjectKey.substring(withSubjectKey.indexOf(" ") + 1);
+        }
 
         System.out.println(sender);
         System.out.println(recipient);
         System.out.println(subject);
 
-        // save HTML elements from
-		
         return new EMail(sender, recipient, subject);
-    }
 
-
+}
 }
