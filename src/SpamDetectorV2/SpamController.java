@@ -10,20 +10,32 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 public class SpamController implements EventHandler<ActionEvent>{
-	//declare view and model
+
 	private final SpamView view;
 	private final SpamModel model;
 	
 	EMail mail;
-	
-	//constructor
+
 	protected SpamController (SpamView view, SpamModel model) {
-		
-		//reference view and model objects
+				
+
 		this.model = model;
 		this.view = view;
 		
-		//Action events for Buttons
+		view.deleteBtn.setDisable(true);
+		view.deleteAllBtn.setDisable(true);
+		view.checkBtn.setDisable(true);
+		view.deleteSpamBtn.setDisable(true);
+		view.openEmail.setDisable(true);
+		
+
+		view.deleteBtn.setStyle("-fx-border-color: transparent;");
+		view.deleteAllBtn.setStyle("-fx-border-color: transparent;");
+		view.checkBtn.setStyle("-fx-border-color: transparent;");
+		view.deleteSpamBtn.setStyle("-fx-border-color: transparent;");
+		view.openEmail.setStyle("-fx-border-color: transparent;");
+		
+
 		view.addBtn.setOnAction(this::handle);
 		view.deleteBtn.setOnAction(this::handle);
 		view.deleteAllBtn.setOnAction(this::handle);
@@ -41,24 +53,45 @@ public class SpamController implements EventHandler<ActionEvent>{
 			model.chooseEmlFile();
 			model.add();
 			view.table.setItems(model.getMailList());
+
+			if (!model.mails.isEmpty()) {
+				view.deleteBtn.setDisable(false);
+				view.deleteAllBtn.setDisable(false);
+				view.checkBtn.setDisable(false);
+				view.openEmail.setDisable(false);
+				view.deleteSpamBtn.setDisable(false);
+			}
 			
 		} else if (b == view.deleteBtn) {
 			
-			view.deleteBtn.setOnAction(event -> {
+			EMail selectedItem = view.table.getSelectionModel().getSelectedItem();
 				
-				EMail selectedItem = view.table.getSelectionModel().getSelectedItem();
-				
-				if (selectedItem != null) {
-		                model.mails.remove(selectedItem);
-		                
-		            }
-		        });	
+			if (selectedItem != null) {
+		        model.mails.remove(selectedItem);
+		        
+		        if (model.mails.isEmpty()) {
+					view.deleteBtn.setDisable(true);
+					view.deleteAllBtn.setDisable(true);
+					view.checkBtn.setDisable(true);
+					view.openEmail.setDisable(true);
+					view.deleteSpamBtn.setDisable(true);
+				}
+		    }
+			
 		} 
 		else if (b == view.deleteAllBtn) {
 			model.mails.clear();
+			view.deleteBtn.setDisable(true);
+			view.deleteAllBtn.setDisable(true);
+			view.checkBtn.setDisable(true);
+			view.openEmail.setDisable(true);
+			view.deleteSpamBtn.setDisable(true);
 		} 
 		else if (b == view.checkBtn) {
+			
 			model.checkSpam();
+			
+			
 		} 
 		else if (b == view.deleteSpamBtn) {
 			
@@ -70,8 +103,10 @@ public class SpamController implements EventHandler<ActionEvent>{
 		    	EMail selected = view.table.getSelectionModel().getSelectedItem();
 		    	
 		    	
+		    	
 		    });
 		}
-	
+
 	}
 }
+
