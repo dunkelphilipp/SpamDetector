@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -25,12 +23,12 @@ public class SpamModel {
     EMail mail; 
     ObservableList<EMail> mails = FXCollections.observableArrayList();
     SpamView view;
+    SpamModel model;
 	private String htmlFileName;
 
 	private File selectedFile;
 
 	public void chooseEmlFile() {
-		
 	    FileChooser fileChooser = new FileChooser();
 	    fileChooser.setTitle("Open EML File");
 	    fileChooser.getExtensionFilters().addAll(
@@ -43,6 +41,7 @@ public class SpamModel {
 	public File getSelectedFile() {
 	    return selectedFile;
 	}
+
 
     public void add() {
 
@@ -79,7 +78,6 @@ public class SpamModel {
                 this.htmlFileName = htmlFile.getAbsolutePath();
                 System.out.println("Die HTML-Datei wurde erstellt: " + htmlFile.getName());
 
-                
                 try {
                 	
                 	
@@ -97,17 +95,14 @@ public class SpamModel {
             
        }
     	
+    	
     
-    public static String getEmailBodyFromHtmlFile(String htmlFileName) throws IOException {
-    
-    	    File file = new File(htmlFileName);
-            byte[] bytes = Files.readAllBytes(file.toPath());
-            String htmlContent = new String(bytes, StandardCharsets.UTF_8);
+   // private List<File> chooseEmlFiles() {
 
-            Document doc = Jsoup.parse(htmlContent);
-            return doc.body().html();
-        }
-    
+    public String emlToHtml() {
+    	return null;
+    }
+
 
     public void checkSpam() {
 
