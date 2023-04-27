@@ -21,7 +21,7 @@ public class EMail {
     private String sender;
     private String recipient;
     private String subject;
-    
+	
     private String body;
     private int spamScore;
     
@@ -32,7 +32,7 @@ public class EMail {
         this.sender = sender;
         this.recipient = recipient;
         this.subject = subject;
-//        this.body = body;
+
 
     }
 
@@ -52,11 +52,7 @@ public class EMail {
     public String getSubject() {
         return subject;
     }
-
-    public void setSpamScore(int spamScore) {
-        this.spamScore = spamScore;
-    }
-
+    
     //HH Getter und Setter
     public int getSpamScore() {
 		return spamScore;
@@ -119,5 +115,5 @@ public class EMail {
         return new EMail(sender, recipient, subject);
 
 }
-    
+
 }
