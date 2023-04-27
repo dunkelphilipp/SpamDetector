@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -55,6 +57,23 @@ public class EMail {
         this.spamScore = spamScore;
     }
 
+    //HH Getter und Setter
+    public int getSpamScore() {
+		return spamScore;
+	}
+    
+    public String getBody() {
+    	return body;
+    }
+
+    //HH store Mail content in Arraylist
+	public ArrayList<String> getContent() {
+		ArrayList<String> content = new ArrayList<String>();
+		content.addAll(Arrays.asList(sender.toLowerCase().split("[^a-zA-Z0-9]")));
+		content.addAll(Arrays.asList(subject.toLowerCase().split("[^a-zA-Z0-9]")));
+		content.addAll(Arrays.asList(body.toLowerCase().split("[^a-zA-Z0-9]")));
+		return content;
+	}
 
     // Method to read EMail attributes from HTML File
     public static EMail fromFile(String fileName) {
@@ -100,4 +119,5 @@ public class EMail {
         return new EMail(sender, recipient, subject);
 
 }
+    
 }

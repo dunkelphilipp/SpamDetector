@@ -42,6 +42,8 @@ public class SpamController implements EventHandler<ActionEvent>{
 			model.add();
 			view.table.setItems(model.getMailList());
 			
+			
+			
 		} else if (b == view.deleteBtn) {
 			
 			view.deleteBtn.setOnAction(event -> {
