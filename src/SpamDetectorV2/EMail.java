@@ -2,7 +2,6 @@ package SpamDetectorV2;
 
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import java.util.Arrays;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.jsoup.nodes.*;
 
 
@@ -59,7 +57,11 @@ public class EMail {
     	return body;
     }
 
-    //HH store Mail content in Arraylist
+    public void setSpamScore(int spamScore) {
+		this.spamScore = spamScore;
+	}
+
+	//HH store Mail content in Arraylist
 	public ArrayList<String> getContent() {
 		ArrayList<String> content = new ArrayList<String>();
 		content.addAll(Arrays.asList(sender.toLowerCase().split("[^a-zA-Z0-9]")));
