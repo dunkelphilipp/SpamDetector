@@ -1,15 +1,18 @@
 package SpamDetectorV2;
 
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.lang.model.element.Element;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.jsoup.nodes.*;
+
 
 public class EMail {
     // E-Mail object attributes
@@ -18,18 +21,16 @@ public class EMail {
     private String sender;
     private String recipient;
     private String subject;
-    //Body falls nicht gebraucht löschen 
     private String body;
     private int spamScore;
 
 	// Constructor for E-Mail objects
-    protected EMail(String sender, String recipient, String subject, String body) {
+    protected EMail(String sender, String recipient, String subject) {
         this.ID = nextID++;
         this.sender = sender;
         this.recipient = recipient;
         this.subject = subject;
-        this.body = body;
-
+        //this.body = body;
     }
 
     // Getter and Setter E-Mail attributes
@@ -48,10 +49,24 @@ public class EMail {
     public String getSubject() {
         return subject;
     }
-
-    public void setSpamScore(int spamScore) {
-        this.spamScore = spamScore;
+    
+    //HH Getter und Setter
+    public int getSpamScore() {
+		return spamScore;
+	}
+    
+    public String getBody() {
+    	return body;
     }
+
+    //HH store Mail content in Arraylist
+	public ArrayList<String> getContent() {
+		ArrayList<String> content = new ArrayList<String>();
+		content.addAll(Arrays.asList(sender.toLowerCase().split("[^a-zA-Z0-9]")));
+		content.addAll(Arrays.asList(subject.toLowerCase().split("[^a-zA-Z0-9]")));
+		content.addAll(Arrays.asList(body.toLowerCase().split("[^a-zA-Z0-9]")));
+		return content;
+	}
 
     // Method to read EMail attributes from HTML File
     public static EMail fromFile(String fileName) {

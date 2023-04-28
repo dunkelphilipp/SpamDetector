@@ -83,9 +83,17 @@ public class SpamView {
 		subjectClm.setCellValueFactory(new PropertyValueFactory<EMail, String>("subject"));
 		
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> refs/remotes/origin/main
 		TableColumn<EMail, String> spamClm = new TableColumn<>("Spam Score");
 		spamClm.setId("spamClm");
 		spamClm.setCellValueFactory(new PropertyValueFactory<EMail, String>("spamScore"));
+<<<<<<< HEAD
+=======
+		
+>>>>>>> refs/remotes/origin/main
 
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		table.getColumns().addAll(senderClm, recipientClm, subjectClm, spamClm);
