@@ -64,9 +64,16 @@ public class EMail {
 	//HH store Mail content in Arraylist
 	public ArrayList<String> getContent() {
 		ArrayList<String> content = new ArrayList<String>();
-		content.addAll(Arrays.asList(sender.toLowerCase().split("[^a-zA-Z0-9]")));
-		content.addAll(Arrays.asList(subject.toLowerCase().split("[^a-zA-Z0-9]")));
-		content.addAll(Arrays.asList(body.toLowerCase().split("[^a-zA-Z0-9]")));
+		if (sender != null) {
+			content.addAll(Arrays.asList(sender.toLowerCase().split("[^a-zA-Z0-9]")));
+		}
+		if (subject != null) {
+			content.addAll(Arrays.asList(subject.toLowerCase().split("[^a-zA-Z0-9]")));
+			
+		}
+		if (body != null) {
+			content.addAll(Arrays.asList(body.toLowerCase().split("[^a-zA-Z0-9]")));
+		}
 		return content;
 	}
 
