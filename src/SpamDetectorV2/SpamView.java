@@ -83,14 +83,14 @@ public class SpamView {
 		subjectClm.setCellValueFactory(new PropertyValueFactory<EMail, String>("subject"));
 		
 		
-		/*
+		
 		TableColumn<EMail, String> spamClm = new TableColumn<>("Spam Score");
 		spamClm.setId("spamClm");
 		spamClm.setCellValueFactory(new PropertyValueFactory<EMail, String>("spamScore"));
-		*/
+		
 
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		table.getColumns().addAll(senderClm, recipientClm, subjectClm);
+		table.getColumns().addAll(senderClm, recipientClm, subjectClm, spamClm);
 		table.setEditable(true);
 
 		//bottom elements
