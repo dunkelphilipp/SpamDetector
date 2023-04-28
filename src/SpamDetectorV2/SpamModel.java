@@ -1,17 +1,14 @@
 package SpamDetectorV2;
 
-import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
-
-import javax.swing.JFileChooser;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,9 +100,31 @@ public class SpamModel {
     	return null;
     }
 
-
-    public void checkSpam() {
-
+    //PD Check if Spam and set a spamscore
+    public void checkSpam(){
+        Blacklist blacklist = new Blacklist("blacklist-spam-detector1.csv");
+        ArrayList<String> keywords = blacklist.readFile();
+        //Zur Kontrolle 
+        for(String s : keywords) {
+        	System.out.print(s);
+        } System.out.println();
+        
+        for (EMail m : mails) {
+            int spamScore = 0;
+            ArrayList<String> content = m.getContent();
+            //Zur Kontrolle 
+            for(String s : content) {
+            	System.out.print(s);
+            	System.out.println();
+            }
+            for (String keyword : keywords) {
+                if (content.contains(keyword.toLowerCase())) {
+                    spamScore = 1;
+                    break;
+                }
+            }
+            m.setSpamScore(spamScore);
+        }
     }
         
     public ObservableList<EMail> getMailList(){
