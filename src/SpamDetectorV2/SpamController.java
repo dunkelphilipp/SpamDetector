@@ -14,7 +14,7 @@ public class SpamController implements EventHandler<ActionEvent>{
 	private final SpamView view;
 	private final SpamModel model;
 	
-	EMail mail;
+	private EMail mail;
 	
 	//constructor
 	protected SpamController (SpamView view, SpamModel model) {

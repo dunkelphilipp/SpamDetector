@@ -51,7 +51,6 @@
 }
 
 /* Table column properties */
-/*
 #senderClm {
 	-fx-pref-width: 350px;
 }
@@ -60,9 +59,6 @@
 }
 #subjectClm {
 	-fx-pref-width: 350px;
-}
-#contentClm {
-	-fx-pref-width: 350px
 }
 #spamClm {
 	-fx-pref-width: 100px;
