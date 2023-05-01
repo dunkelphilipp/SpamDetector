@@ -36,19 +36,6 @@
 #spamLbl {
 	-fx-font-size: 18px;
 }
-#scoreLbl {
-	-fx-aligment: center;
-	-fx-content-display: center;
-}
-#text1 {
-	-fx-fill: green;
-}
-#text2 {
-	-fx-fill: orange;
-}
-#text3 {
-	-fx-fill: red;
-}
 
 /* Table column properties */
 #senderClm {

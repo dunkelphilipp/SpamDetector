@@ -21,6 +21,7 @@ public class EMail {
     private String subject;
     private String body;
     private int spamScore;
+    private Boolean spam = null;
 
 	// Constructor for E-Mail objects
     protected EMail(String sender, String recipient, String subject) {
@@ -35,30 +36,34 @@ public class EMail {
     public int getID() {
         return ID;
     }
-
     public String getSender() {
         return sender;
     }
-
     public String getRecipient() {
         return recipient;
     }
-
     public String getSubject() {
         return subject;
-    }
-    
-    //HH Getter und Setter
+    } 
+    public Boolean isSpam() {
+		return spam;
+	}
+	public void setSpam(Boolean spam) {
+		this.spam = spam;
+	}
+
+	//HH Getter und Setter
     public int getSpamScore() {
 		return spamScore;
+	}  
+    public void setSpamScore(int spamScore) {
+		this.spamScore = spamScore;
 	}
-    
     public String getBody() {
     	return body;
     }
-
-    public void setSpamScore(int spamScore) {
-		this.spamScore = spamScore;
+	public void setBody(String body) {
+		this.body = body;
 	}
 
 	//HH store Mail content in Arraylist
@@ -113,10 +118,18 @@ public class EMail {
             String withSubjectKey = subjectElement.text();
             subject = withSubjectKey.substring(withSubjectKey.indexOf(" ") + 1);
         }
+        
+//        Element bodyElement = d.select("div").first();
+//        String body = "";
+//        if (bodyElement != null) {
+//            body = bodyElement.text();
+//        }
 
+        //Zur Kontrolle 
         System.out.println(sender);
         System.out.println(recipient);
         System.out.println(subject);
+        //System.out.println("Body: " + body);
 
         return new EMail(sender, recipient, subject);
     }

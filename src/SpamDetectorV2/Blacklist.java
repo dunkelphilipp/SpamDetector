@@ -22,7 +22,10 @@ public class Blacklist {
 			while ((line = reader.readLine()) != null) {
 				String[] keywords = line.split(",");
 				for (String s : keywords) {
-					blacklist.add(s.trim().toLowerCase());
+					String trimmedStr = s.trim().toLowerCase().replace(";", "");
+					if(!trimmedStr.isEmpty()) {
+						blacklist.add(trimmedStr);
+					}
 				}
 			}
 		} catch (IOException e) {

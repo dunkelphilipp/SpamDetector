@@ -91,10 +91,8 @@ public class SpamController implements EventHandler<ActionEvent>{
 			view.deleteSpamBtn.setDisable(true);
 		} 
 		else if (b == view.checkBtn) {
-			
 			model.checkSpam();
-			
-			
+			view.table.refresh();
 		} 
 		else if (b == view.deleteSpamBtn) {
 			
@@ -103,10 +101,7 @@ public class SpamController implements EventHandler<ActionEvent>{
 		
 		    view.openEmail.setOnAction(event ->{
 		    	
-		    	EMail selected = view.table.getSelectionModel().getSelectedItem();
-		    	
-		    	
-		    	
+		    	EMail selected = view.table.getSelectionModel().getSelectedItem();		    	
 		    });
 		}
 

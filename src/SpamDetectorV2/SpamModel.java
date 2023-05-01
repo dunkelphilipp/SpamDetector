@@ -107,13 +107,14 @@ public class SpamModel {
     public void checkSpam(){
         Blacklist blacklist = new Blacklist("blacklist-spam-detector1.csv");
         ArrayList<String> keywords = blacklist.readFile();
+        ArrayList<String> matchingWords = new ArrayList<String>();
         //Zur Kontrolle 
         for(String s : keywords) {
         	System.out.print(s);
         } System.out.println();
         
         for (EMail m : mails) {
-            int spamScore = 0;
+        	int spamScore = 0;
             ArrayList<String> content = m.getContent();
             //Zur Kontrolle 
             for(String s : content) {
@@ -121,12 +122,21 @@ public class SpamModel {
             	System.out.println();
             }
             for (String keyword : keywords) {
-                if (content.contains(keyword.toLowerCase())) {
-                    spamScore = 1;
-                    break;
-                }
+            	for (String s : content) {
+                    if (content.contains(keyword)) {
+                        spamScore++;
+                        matchingWords.add(s);
+                    }
+            	}
             }
             m.setSpamScore(spamScore);
+            m.setSpam(spamScore > 0);
+            //Zur Kontrolle 
+            System.out.println(m.getSpamScore());
+            System.out.println(m.isSpam());
+            for (String s : matchingWords) {
+            	System.out.print(s);
+            }
         }
     }
         

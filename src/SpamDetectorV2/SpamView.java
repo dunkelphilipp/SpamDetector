@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -42,7 +43,6 @@ public class SpamView {
 	//bottom
 	protected HBox lowerBar;
 	protected Label spamLbl;
-	protected Label scoreLbl;
 	protected Button deleteSpamBtn;
 	
     ObservableList<EMail> email = FXCollections.observableArrayList();
@@ -83,9 +83,9 @@ public class SpamView {
 		subjectClm.setCellValueFactory(new PropertyValueFactory<EMail, String>("subject"));
 		
 		
-		TableColumn<EMail, String> spamClm = new TableColumn<>("Spam Score");
+		TableColumn<EMail, String> spamClm = new TableColumn<>("Spam");
 		spamClm.setId("spamClm");
-		spamClm.setCellValueFactory(new PropertyValueFactory<EMail, String>("spamScore"));
+		spamClm.setCellValueFactory(new PropertyValueFactory<EMail, String>("spam"));
 
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		table.getColumns().addAll(senderClm, recipientClm, subjectClm, spamClm);
@@ -103,25 +103,8 @@ public class SpamView {
 		
 		spamLbl = new Label("Add E-Mails");
 		spamLbl.setId("spamLbl");
-		scoreLbl = new Label();
-		
-		//" 1: low Spampotential 2: medium Spampotential 3: high Spampotential"
-		scoreLbl.setId("scoreLbl");
-		
-		TextFlow scoreFlow = new TextFlow();
-		Text text1 = new Text("1: low Spampotential ");
-		text1.setId("text1");
-		
-		Text text2 = new Text("2: medium Spampotential ");
-		text2.setId("text2");
-		
-		Text text3 = new Text("3: high Spampotential");
-		text3.setId("text3");
-		
-		scoreFlow.getChildren().addAll(text1, text2, text3);
-		scoreLbl.setGraphic(scoreFlow);
 		deleteSpamBtn = new Button("Delete Spam");
-		lowerBar.getChildren().addAll(spamLbl, spacer1, scoreLbl, spacer2, deleteSpamBtn);
+		lowerBar.getChildren().addAll(spamLbl, spacer1, deleteSpamBtn);
 		
 		//root Borderpane
 		root = new BorderPane();
@@ -139,7 +122,6 @@ public class SpamView {
 		stage.setTitle("Spam Detector");
 
 	}
-
 
 	//start method
 	public void start() {
