@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.*;
+import org.jsoup.nodes.Element;
 
 
 public class EMail {
@@ -118,18 +118,12 @@ public class EMail {
             String withSubjectKey = subjectElement.text();
             subject = withSubjectKey.substring(withSubjectKey.indexOf(" ") + 1);
         }
-        
-//        Element bodyElement = d.select("div").first();
-//        String body = "";
-//        if (bodyElement != null) {
-//            body = bodyElement.text();
-//        }
 
         //Zur Kontrolle 
         System.out.println(sender);
         System.out.println(recipient);
         System.out.println(subject);
-        //System.out.println("Body: " + body);
+        //System.out.println("Body: " + bodyStr);
 
         return new EMail(sender, recipient, subject);
     }
