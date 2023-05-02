@@ -20,7 +20,7 @@ public class Blacklist {
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))){
 			String line;
 			while ((line = reader.readLine()) != null) {
-				String[] keywords = line.split(",");
+				String[] keywords = line.split(";");
 				for (String s : keywords) {
 					String trimmedStr = s.trim().toLowerCase().replace(";", "");
 					if(!trimmedStr.isEmpty()) {

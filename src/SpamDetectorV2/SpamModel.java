@@ -103,7 +103,7 @@ public class SpamModel {
         ArrayList<String> matchingWords = new ArrayList<String>();
         //Zur Kontrolle 
         for(String s : keywords) {
-        	System.out.print(s);
+        	System.out.print(s + " ");
         } System.out.println();
         
         for (EMail m : mails) {
@@ -111,12 +111,12 @@ public class SpamModel {
             ArrayList<String> content = m.getContent();
             //Zur Kontrolle 
             for(String s : content) {
-            	System.out.print(s);
+            	System.out.print(s + " ");
             	System.out.println();
             }
             for (String keyword : keywords) {
             	for (String s : content) {
-                    if (content.contains(keyword)) {
+                    if (s.equals(keyword)) {
                         spamScore++;
                         matchingWords.add(s);
                     }
@@ -128,7 +128,7 @@ public class SpamModel {
             System.out.println(m.getSpamScore());
             System.out.println(m.isSpam());
             for (String s : matchingWords) {
-            	System.out.print(s);
+            	System.out.print(s + " ");
             }
         }
     }

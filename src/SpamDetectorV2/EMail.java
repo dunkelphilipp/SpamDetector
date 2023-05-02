@@ -21,7 +21,7 @@ public class EMail {
     private String recipient;
     private String subject;
     private String body;
-    private int spamScore;
+    private int spamScore = 0;
     private Boolean spam = null;
 
 	// Constructor for E-Mail objects
@@ -83,6 +83,19 @@ public class EMail {
 		return content;
 	}
 
+	//getConent Test Methode um checkSpam zu prüfen
+//	public ArrayList<String> getContent() {
+//		ArrayList<String> content = new ArrayList<String>();
+//		content.add("spam");
+//		content.add("kredit");
+//		content.add("nudechats.com");
+//		content.add("kredit@mail.com");
+//		content.add("test");
+//		content.add("Schule");
+//		content.add("Arbeit");
+//		return content;	
+//	}
+	
 	public static EMail fromFile(String fileName) {
 	    StringBuilder textEmail = new StringBuilder();
 
@@ -113,6 +126,9 @@ public class EMail {
 	        	body += line + "\n"; // add newline character to preserve line breaks
 	        }
 	    }
+	    System.out.println(sender);
+	    System.out.println(subject);
+	    System.out.println(body);
 
 	    return new EMail(sender, recipient, subject, body);
 	}
