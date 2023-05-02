@@ -10,6 +10,7 @@ import java.util.Arrays;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 
 public class EMail {
@@ -24,12 +25,12 @@ public class EMail {
     private Boolean spam = null;
 
 	// Constructor for E-Mail objects
-    protected EMail(String sender, String recipient, String subject) {
+    protected EMail(String sender, String recipient, String subject, String body) {
         this.ID = nextID++;
         this.sender = sender;
         this.recipient = recipient;
         this.subject = subject;
-        //this.body = body;
+        this.body = body;
     }
 
     // Getter and Setter E-Mail attributes
@@ -118,14 +119,27 @@ public class EMail {
             String withSubjectKey = subjectElement.text();
             subject = withSubjectKey.substring(withSubjectKey.indexOf(" ") + 1);
         }
+        String body = "";
+        try {
+            Element divElement = d.select("p:contains(div )").first();
+            Elements followingElements = divElement.nextElementSiblings();
+            for (Element element : followingElements) {
+                body = element.text();
+                System.out.println(body);
+            }
+
+        }catch (NullPointerException e) {
+            System.out.println("Eine NullPointerException ist aufgetreten: " + e.getMessage());
+        }
+
 
         //Zur Kontrolle 
         System.out.println(sender);
         System.out.println(recipient);
         System.out.println(subject);
-        //System.out.println("Body: " + bodyStr);
+        System.out.println("Body: " + body);
 
-        return new EMail(sender, recipient, subject);
+        return new EMail(sender, recipient, subject, body);
     }
 
 }
