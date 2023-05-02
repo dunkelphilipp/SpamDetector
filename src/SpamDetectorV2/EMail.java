@@ -83,63 +83,37 @@ public class EMail {
 		return content;
 	}
 
-    // Method to read EMail attributes from HTML File
-    public static EMail fromFile(String fileName) {
-        StringBuilder htmlEmail = new StringBuilder();
+	public static EMail fromFile(String fileName) {
+	    StringBuilder textEmail = new StringBuilder();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                htmlEmail.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            textEmail.append(line).append("\n"); // add newline character to preserve line breaks
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 
-        // parse HTML elements as String in d
-        Document d = Jsoup.parse(htmlEmail.toString());
+	    // extract email fields and content from textEmail
+	    String sender = "";
+	    String recipient = "";
+	    String subject = "";
+	    String body = "";
 
-        Element fromElement = d.select("p:contains(From: )").first();
-        String sender = "";
-        if (fromElement != null) {
-            String withFromKey = fromElement.text();
-            sender = withFromKey.substring(withFromKey.indexOf(" ") +1);
-        }
+	    String[] lines = textEmail.toString().split("\n");
+	    for (String line : lines) {
+	        if (line.startsWith("From:")) {
+	            sender = line.substring(6).trim();
+	        } else if (line.startsWith("To:")) {
+	            recipient = line.substring(4).trim();
+	        } else if (line.startsWith("Subject:")) {
+	            subject = line.substring(9).trim();
+	        } else {
+	        	body += line + "\n"; // add newline character to preserve line breaks
+	        }
+	    }
 
-        Element toElement = d.select("p:contains(To: )").first();
-        String recipient = "";
-        if (toElement != null) {
-            String withToKey = toElement.text();
-            recipient = withToKey.substring(withToKey.indexOf(" ") + 1);
-        }
-
-        Element subjectElement = d.select("p:contains(Subject: )").first();
-        String subject = "";
-        if (subjectElement != null) {
-            String withSubjectKey = subjectElement.text();
-            subject = withSubjectKey.substring(withSubjectKey.indexOf(" ") + 1);
-        }
-        String body = "";
-        try {
-            Element divElement = d.select("p:contains(div )").first();
-            Elements followingElements = divElement.nextElementSiblings();
-            for (Element element : followingElements) {
-                body = element.text();
-                System.out.println(body);
-            }
-
-        }catch (NullPointerException e) {
-            System.out.println("Eine NullPointerException ist aufgetreten: " + e.getMessage());
-        }
-
-
-        //Zur Kontrolle 
-        System.out.println(sender);
-        System.out.println(recipient);
-        System.out.println(subject);
-        System.out.println("Body: " + body);
-
-        return new EMail(sender, recipient, subject, body);
-    }
-
+	    return new EMail(sender, recipient, subject, body);
+	}
 }

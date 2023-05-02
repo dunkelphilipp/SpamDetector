@@ -24,7 +24,7 @@ public class SpamModel {
     ObservableList<EMail> mails = FXCollections.observableArrayList();
     SpamView view;
     SpamModel model;
-	private String htmlFileName;
+	private String textFileName;
 
 	private File selectedFile;
 
@@ -42,61 +42,54 @@ public class SpamModel {
 	    return selectedFile;
 	}
 
+	public void add() {
+		 try {
+		        BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
+		        String line;
+		        StringBuilder text = new StringBuilder();
 
-    public void add() {
+		        while ((line = reader.readLine()) != null) {
+		            // Escape special characters in the line
+		            line = line.replaceAll("&", " ")
+		                    .replaceAll("<", " ")
+		                    .replaceAll(">", " ");
 
+		            // Append the line to the text
+		            text.append(line).append("\n");
 
-           try {
-                BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
-                String line;
-                StringBuilder html = new StringBuilder();
-                
-     // Open the HTML document and add a <body> tag
-                html.append("<!DOCTYPE html>\n<html>\n<body>\n");
+		            // Check if line contains "From:", "Subject:", or "To:"
+		            if (line.contains("From:") || line.contains("Subject:") || line.contains("To:")) {
+		                System.out.println(line);
+		            }
+		        }
 
+		        reader.close();
+		        
+		        String textString = text.toString();
+		        
+		        // Write the text to a file
+		        File textFile = new File(selectedFile.getName() + ".txt");
+		        FileWriter writer = new FileWriter(textFile);
+		        writer.write(textString);
+		        writer.close();
 
-                while ((line = reader.readLine()) != null) {
-                    // Escape special characters in the line
-                   line = line.replaceAll("&", " ")
-                               .replaceAll("<", " ")
-                               .replaceAll(">", " ");
-                // Add the line as a paragraph
-                    html.append("<p>").append(line).append("</p>\n");
+		        this.textFileName= textFile.getAbsolutePath();
+		        System.out.println("Die Text-Datei wurde erstellt: " + textFile.getName());
+	            try {
+	            	
+	            	
+	                EMail email = EMail.fromFile(textFileName);
+	                mails.add(email);
 
-                    // Check if line contains "From:", "Subject:", or "To:"
-                    if (line.contains("From:") || line.contains("Subject:") || line.contains("To:")) {
-                        System.out.println(line);
-                   }
-                }
-                  // Close the HTML document and write it to a file
-               html.append("</body>\n</html>");
-                File htmlFile = new File(selectedFile.getName() + ".html");
-                FileWriter writer = new FileWriter(htmlFile);
-                writer.write(html.toString());
-                writer.close();
+	           } catch (Exception e) {
+	                e.printStackTrace();
+	            }
 
-                this.htmlFileName = htmlFile.getAbsolutePath();
-                System.out.println("Die HTML-Datei wurde erstellt: " + htmlFile.getName());
+		    } catch (IOException e) {
+		        e.printStackTrace();
 
-                try {
-                	
-                	
-                    EMail email = EMail.fromFile(htmlFileName);
-                    mails.add(email);
-
-               } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                
-           } catch (IOException e) {
-                e.printStackTrace();
-            }
-            
-       }
-    	
-    	
-    
+		    }
+	}
    // private List<File> chooseEmlFiles() {
 
     public String emlToHtml() {
