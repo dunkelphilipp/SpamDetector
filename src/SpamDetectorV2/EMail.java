@@ -123,7 +123,7 @@ public class EMail {
 	        } else if (line.startsWith("Subject:")) {
 	            subject = line.substring(9).trim();
 	        } else {
-	        	body += line + "\n"; // add newline character to preserve line breaks
+	        	body += line + "\n"; // 
 	        }
 	    }
 	    System.out.println(sender);

@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 public class SpamController implements EventHandler<ActionEvent>{
 
@@ -98,10 +100,15 @@ public class SpamController implements EventHandler<ActionEvent>{
 			
 		}
 		else if(b == view.openEmail) {
-		
+			
 		    view.openEmail.setOnAction(event ->{
 		    	
-		    	EMail selected = view.table.getSelectionModel().getSelectedItem();		    	
+		        EMail selectedRow = ((TableView<EMail>) view.table).getSelectionModel().getSelectedItem();
+		        
+		        int index = ((TableView<EMail>) view.table).getItems().indexOf(selectedRow);
+
+		        EMailView emailView = new EMailView(new Stage(), model, index);
+		        emailView.start();
 		    });
 		}
 

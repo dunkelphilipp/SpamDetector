@@ -1,99 +1,99 @@
-//package SpamDetectorV2;
-//
-//import javafx.scene.Scene;
-//import javafx.scene.control.Label;
-//import javafx.scene.control.ScrollPane;
-//import javafx.scene.layout.BorderPane;
-//import javafx.scene.layout.Pane;
-//import javafx.scene.layout.VBox;
-//import javafx.scene.text.Font;
-//import javafx.scene.text.FontWeight;
-//import javafx.scene.text.Text;
-//import javafx.scene.text.TextFlow;
-//import javafx.stage.Stage;
-//
-//public class EMailView {
-//	private Stage stage;
-//	private SpamModel model;
-//	private int dataIndex;
-//	
-//	Label lblMailView = new Label("Email View");
-//	Label lblViewMailHeading = new Label("View Email");
-//	
-//	public EMailView(Stage stage, SpamModel model, int dataIndex) {
-//		this.stage = stage;
-//		this.model = model;
-//		this.dataIndex = dataIndex;
-//		
-//		BorderPane root = new BorderPane();
-//		root.setCenter(createRightPane());
-//
-//		// Standard stuff for Scene and Stage
-//		Scene scene = new Scene(root);
-//		scene.getStylesheets().add(
-//				getClass().getResource("/SpamDedector.css").toExternalForm());
-//		stage.setTitle("Email");
-//		stage.setScene(scene);
-//		stage.show();
-//	}
-//	
-//	public Stage getStage() {
-//		return stage;
-//	}
-//	
-//	public void start() {
-//		stage.show();
-//	}
-//	
-//	private Pane createRightPane() {
-//		VBox pane = new VBox();
-//		pane.getStyleClass().add("allViews");
-//		lblMailView.getStyleClass().add("heading");
-//		
-//		pane.getChildren().add(lblMailView);
-//		pane.getChildren().add(createRightGrid());
-//		//TODO
-//		
-//		return pane;
-//	}
-//	
-//	public ScrollPane createRightGrid() {
-//		VBox pane = new VBox();
-//		pane.getStyleClass().add("mailViewPadding");
-//		//HBox senderPane = new HBox();
-//		
-//		//Get date from model via passed index and display the data
-//		Text mailViewSender = new Text("Sender: \t\t");
-//		Text mailViewSenderText = new Text(model.mails.get(dataIndex).getSender() + "\n");
-//		mailViewSender.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-//		Text mailViewReceiver = new Text("Receiver: \t");
-//		Text mailViewReceiverText = new Text(model.mails.get(dataIndex).getRecipient() + "\n");
-//		mailViewReceiver.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-//		Text mailViewSubject = new Text("Subject: \t\t");
-//		Text mailViewSubjectText = new Text(model.mails.get(dataIndex).getSubject() + "\n\n");
-//		mailViewSubject.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-//
-////		Text mailViewContent = new Text("Content: \n");
-////		Text mailViewContentText = new Text(model.mails.get(dataIndex).getContent() + "\n");
-////		mailViewContent.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-////		
-//		TextFlow mailViewAll = new TextFlow(
-//				mailViewSender, mailViewSenderText,
-//				mailViewReceiver,mailViewReceiverText,
-//				mailViewSubject, mailViewSubjectText,
-//				mailViewContent, mailViewContentText);
-//		
-//		mailViewAll.setMaxWidth(500);
-//		mailViewAll.setLineSpacing(5);
-//		
-//		pane.getChildren().add(mailViewAll);
-//		
-//		//make content scrollable
-//		ScrollPane sPane = new ScrollPane();
-//		sPane.setContent(pane);
-//	    sPane.setFitToWidth(true);
-//	    sPane.setFitToHeight(true);
-//		
-//		return sPane;
-//	}
-//}
+package SpamDetectorV2;
+
+import javafx.scene.Scene;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+import javafx.stage.Stage; 
+
+
+public class EMailView {
+	
+	private final Stage stage;
+	private final SpamModel model;
+	private int index; 
+	
+	EMail mail;
+
+	//declare GUI Elements
+	protected BorderPane root;	
+	
+	protected GridPane inhalt;
+
+	protected EMailView(Stage stage, SpamModel model, int index){
+		
+		this.stage = stage;
+		this.model = model; 
+		this.index = index; 
+		
+		Label l1 = new Label("E-Mail:");
+		
+		root = new BorderPane();
+		root.setTop(l1);
+		
+		inhalt = new GridPane();
+		
+		Label fromV = new Label("Sender: ");
+		Label toV = new Label("Recipient: ");
+		Label subjectV = new Label("Subject: ");
+		Label contentV = new Label("Content: ");
+		
+		inhalt.add(fromV, 0, 0);
+		inhalt.add(toV, 0, 1);
+		inhalt.add(subjectV, 0, 2);
+		inhalt.add(contentV, 0, 3);
+
+		Text s = new Text(model.mails.get(index).getSender());
+		Text r = new Text(model.mails.get(index).getRecipient());
+		Text sub = new Text(model.mails.get(index).getSubject());
+		Text b = new Text(model.mails.get(index).getBody());
+		
+		inhalt.add(s, 1, 0);
+		inhalt.add(r, 1, 1);
+		inhalt.add(sub, 1, 2);
+	    inhalt.add(b, 1, 4);
+		
+		root.setCenter(inhalt);
+
+		//create scene
+	
+		stage.setTitle("E-Mail");
+		
+	
+		double contentWidth = inhalt.getBoundsInParent().getWidth();
+		double contentHeight = inhalt.getBoundsInParent().getHeight();
+
+		double windowWidth = (contentWidth+50);
+		double windowHeight = (contentHeight+100);
+
+	
+		stage.setWidth(windowWidth);
+		stage.setHeight(windowHeight);
+
+		// erstellen Sie die Szene
+		Scene scene = new Scene(root);
+
+		scene.getStylesheets().add(getClass().getResource("Spam.css").toExternalForm());
+		stage.setScene(scene);
+		stage.sizeToScene();
+		stage.show();
+
+
+	}
+
+	//start method
+	public void start() {
+		stage.show();
+	}
+}
+
+

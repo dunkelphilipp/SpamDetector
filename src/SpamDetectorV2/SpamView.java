@@ -45,7 +45,7 @@ public class SpamView {
 	protected Label spamLbl;
 	protected Button deleteSpamBtn;
 	
-    ObservableList<EMail> email = FXCollections.observableArrayList();
+    //ObservableList<EMail> email = FXCollections.observableArrayList();
 	
 	//constructor SpamView
 	protected SpamView(Stage stage, SpamModel model) {
