@@ -132,4 +132,5 @@ public class EMail {
 
 	    return new EMail(sender, recipient, subject, body);
 	}
+
 }
