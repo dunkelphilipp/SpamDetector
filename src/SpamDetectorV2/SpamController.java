@@ -10,7 +10,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-
+import java.util.ArrayList;
+import java.util.List;
 public class SpamController implements EventHandler<ActionEvent>{
 
 	private final SpamView view;
@@ -97,7 +98,15 @@ public class SpamController implements EventHandler<ActionEvent>{
 			view.table.refresh();
 		} 
 		else if (b == view.deleteSpamBtn) {
-			
+
+			ArrayList<EMail> spamMails = new ArrayList<>();
+			for (EMail m : model.mails) {
+			    if (m.isSpam()) {
+			        spamMails.add(m);
+			    }
+			}
+			model.mails.removeAll(spamMails);
+			view.table.refresh();
 		}
 		else if(b == view.openEmail) {
 			
