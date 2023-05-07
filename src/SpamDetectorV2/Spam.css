@@ -1,4 +1,4 @@
-/* @charset "UTF-8";*/
+/*PD CSS for Spamdetector*/
 
 /* standard Button properties */
 .button {
@@ -14,7 +14,6 @@
 .table-view {
 	-fx-table-cell-border-color: black;
 }
-
 
 /* root properties */
 #root {
@@ -54,11 +53,4 @@
 /* change text color */
 .root {
 	-fx-text-fill: black;
-}
-.spam {
-	-fx-text-fill: red;
-}
-
-.noSpam {
-	-fx-text-fill: green;
 }

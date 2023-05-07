@@ -7,14 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 
 public class EMail {
-    // E-Mail object attributes
+    //EMail object attributes
     private final int ID;
     private static int nextID = 1;
     private String sender;
@@ -24,7 +19,7 @@ public class EMail {
     private int spamScore = 0;
     private Boolean spam = null;
 
-	// Constructor for E-Mail objects
+	//Constructor
     protected EMail(String sender, String recipient, String subject, String body) {
         this.ID = nextID++;
         this.sender = sender;
@@ -33,10 +28,7 @@ public class EMail {
         this.body = body;
     }
 
-    // Getter and Setter E-Mail attributes
-    public int getID() {
-        return ID;
-    }
+    //PD Getter and Setter E-Mail attributes
     public String getSender() {
         return sender;
     }
@@ -67,7 +59,7 @@ public class EMail {
 		this.body = body;
 	}
 
-	//HH store Mail content in Arraylist
+	//HH Method to store Mail content in Arraylist
 	public ArrayList<String> getContent() {
 		ArrayList<String> content = new ArrayList<String>();
 		if (sender != null) {
@@ -83,7 +75,7 @@ public class EMail {
 		return content;
 	}
 
-	//getConent Test Methode um checkSpam zu prüfen
+	//PD getConent test methode for checkspam method
 //	public ArrayList<String> getContent() {
 //		ArrayList<String> content = new ArrayList<String>();
 //		content.add("spam");
@@ -96,9 +88,11 @@ public class EMail {
 //		return content;	
 //	}
 	
+	//EK Method to read EMail content from file 
 	public static EMail fromFile(String fileName) {
 	    StringBuilder textEmail = new StringBuilder();
 
+	    //Read file
 	    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
 	        String line;
 	        while ((line = reader.readLine()) != null) {
@@ -108,12 +102,13 @@ public class EMail {
 	        e.printStackTrace();
 	    }
 
-	    // extract email fields and content from textEmail
+	    //extract EMail content
 	    String sender = "";
 	    String recipient = "";
 	    String subject = "";
 	    String body = "";
 
+	    //Add EMail content to the right String
 	    String[] lines = textEmail.toString().split("\n");
 	    for (String line : lines) {
 	        if (line.startsWith("From:")) {
@@ -126,6 +121,8 @@ public class EMail {
 	        	body += line + "\n"; // 
 	        }
 	    }
+	    
+	    //print to contoroll content 
 	    System.out.println(sender);
 	    System.out.println(subject);
 	    System.out.println(body);

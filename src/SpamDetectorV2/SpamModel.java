@@ -19,15 +19,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class SpamModel {
-
     EMail mail; 
     ObservableList<EMail> mails = FXCollections.observableArrayList();
-    SpamView view;
-    SpamModel model;
+    private SpamView view;
+    private SpamModel model;
 	private String textFileName;
-
 	private File selectedFile;
 
+	//EK Methode to open eml File from System
 	public void chooseEmlFile() {
 	    FileChooser fileChooser = new FileChooser();
 	    fileChooser.setTitle("Open EML File");
@@ -38,10 +37,12 @@ public class SpamModel {
 	    selectedFile = fileChooser.showOpenDialog(null);
 	}
 
+	//EK Getter 
 	public File getSelectedFile() {
 	    return selectedFile;
 	}
 
+	//EK Method to add file into table
 	public void add() {
 		 try {
 		        BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
@@ -49,15 +50,15 @@ public class SpamModel {
 		        StringBuilder text = new StringBuilder();
 
 		        while ((line = reader.readLine()) != null) {
-		            // Escape special characters in the line
+		            //Escape special characters in the line
 		            line = line.replaceAll("&", " ")
 		                    .replaceAll("<", " ")
 		                    .replaceAll(">", " ");
 
-		            // Append the line to the text
+		            //Append the line to the text
 		            text.append(line).append("\n");
 
-		            // Check if line contains "From:", "Subject:", or "To:"
+		            //Check if line contains "From:", "Subject:", or "To:"
 		            if (line.contains("From:") || line.contains("Subject:") || line.contains("To:")) {
 		                System.out.println(line);
 		            }
@@ -67,7 +68,7 @@ public class SpamModel {
 		        
 		        String textString = text.toString();
 		        
-		        // Write the text to a file
+		        //Write the text to a file
 		        File textFile = new File(selectedFile.getName() + ".txt");
 		        FileWriter writer = new FileWriter(textFile);
 		        writer.write(textString);
@@ -90,8 +91,8 @@ public class SpamModel {
 
 		    }
 	}
-   // private List<File> chooseEmlFiles() {
 
+	//EK eml to HTML method
     public String emlToHtml() {
     	return null;
     }
@@ -99,8 +100,8 @@ public class SpamModel {
     //PD Check if Spam and set a spamscore
     public void checkSpam(){
         Blacklist blacklist = new Blacklist("blacklist-spam-detector1.csv");
-        ArrayList<String> keywords = blacklist.readFile();
-        ArrayList<String> matchingWords = new ArrayList<String>();
+        ArrayList<String> keywords = blacklist.readFile(); //blacklist keywords
+        ArrayList<String> matchingWords = new ArrayList<String>(); //Matching words EMail - Blacklist
         //Zur Kontrolle 
         for(String s : keywords) {
         	System.out.print(s + " ");
@@ -108,8 +109,8 @@ public class SpamModel {
         
         for (EMail m : mails) {
         	int spamScore = 0;
-            ArrayList<String> content = m.getContent();
-            //Zur Kontrolle 
+            ArrayList<String> content = m.getContent(); //EMail subject, sender, body 
+            //zur Kontrolle 
             for(String s : content) {
             	System.out.print(s + " ");
             	System.out.println();
@@ -123,7 +124,7 @@ public class SpamModel {
             	}
             }
             m.setSpamScore(spamScore);
-            m.setSpam(spamScore > 0);
+            m.setSpam(spamScore > 0);//Spamscore > 1 | spam = true 
             //Zur Kontrolle 
             System.out.println(m.getSpamScore());
             System.out.println(m.isSpam());
@@ -133,6 +134,7 @@ public class SpamModel {
         }
     }
         
+    //EK getMailList method
     public ObservableList<EMail> getMailList(){
     	return this.mails;
     }

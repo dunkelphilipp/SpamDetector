@@ -15,9 +15,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage; 
 
-
+//EK view to open EMails
 public class EMailView {
-	
 	private final Stage stage;
 	private final SpamModel model;
 	private int index; 
@@ -29,6 +28,7 @@ public class EMailView {
 	
 	protected GridPane inhalt;
 
+	//EK EMail view constructor
 	protected EMailView(Stage stage, SpamModel model, int index){
 		
 		this.stage = stage;
@@ -38,6 +38,7 @@ public class EMailView {
 		Label l1 = new Label("E-Mail:");
 		
 		root = new BorderPane();
+		root.setId("MailRoot");
 		root.setTop(l1);
 		
 		inhalt = new GridPane();
@@ -65,7 +66,7 @@ public class EMailView {
 		root.setCenter(inhalt);
 
 		//create scene
-	
+		
 		stage.setTitle("E-Mail");
 		
 	
@@ -79,7 +80,6 @@ public class EMailView {
 		stage.setWidth(windowWidth);
 		stage.setHeight(windowHeight);
 
-		// erstellen Sie die Szene
 		Scene scene = new Scene(root);
 
 		scene.getStylesheets().add(getClass().getResource("Spam.css").toExternalForm());

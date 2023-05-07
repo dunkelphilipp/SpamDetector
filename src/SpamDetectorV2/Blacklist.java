@@ -5,22 +5,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+//PD Blacklist Class for blacklist objects with .csv content
 public class Blacklist {
-	private static String file = "blacklist-spam-detector1.csv";
+	private static String file;
 	
-	//Constructor
+	//PD Constructor with file name
 	protected Blacklist(String file) {
 		Blacklist.file = file;
 	}
 	
-	//Method to store blacklist in an Arraylist
+	//PD Method to read the file and store the conent
 	public ArrayList<String> readFile() {
 		ArrayList<String> blacklist = new ArrayList<String>();
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))){
 			String line;
+			//read each line from the file 
 			while ((line = reader.readLine()) != null) {
+				//split the lines in words
 				String[] keywords = line.split(";");
+				//add words in ArrayList
 				for (String s : keywords) {
 					String trimmedStr = s.trim().toLowerCase().replace(";", "");
 					if(!trimmedStr.isEmpty()) {

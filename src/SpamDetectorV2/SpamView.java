@@ -18,11 +18,11 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 public class SpamView {
-	//PD reference Stage and Model
 	private final Stage stage;
 	private final SpamModel model;
 	EMail mail;
-	//declare GUI Elements
+	
+	//PD eclare GUI Elements
 	protected BorderPane root;	
 	
 	//top
@@ -45,16 +45,13 @@ public class SpamView {
 	protected Label spamLbl;
 	protected Button deleteSpamBtn;
 	
-    //ObservableList<EMail> email = FXCollections.observableArrayList();
-	
-	//constructor SpamView
+	//PD constructor SpamView
 	protected SpamView(Stage stage, SpamModel model) {
-		//reference view and model objects
 		this.stage = stage;
 		this.model = model;
 		
-		//instantiate GUI elements
-		//top elements
+		//PD instantiate GUI elements
+		//PD top elements
 		topBar = new HBox();
 		topBar.setId("topBar");
 		addBtn = new Button("Add E-Mail");
@@ -65,8 +62,7 @@ public class SpamView {
 		
 		topBar.getChildren().addAll(addBtn, deleteBtn, deleteAllBtn, checkBtn, openEmail);
 		
-		//center elements
-
+		//PD center elements
 		table = new TableView<EMail>();
 		
 		TableColumn<EMail, String> senderClm= new TableColumn<>("Sender");
@@ -87,11 +83,12 @@ public class SpamView {
 		spamClm.setId("spamClm");
 		spamClm.setCellValueFactory(new PropertyValueFactory<EMail, String>("spam"));
 
+		//HH create tableview
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		table.getColumns().addAll(senderClm, recipientClm, subjectClm, spamClm);
 		table.setEditable(true);
 
-		//bottom elements
+		//PD bottom elements
 		lowerBar = new HBox();
 		lowerBar.setId("lowerBar");
 		
@@ -106,14 +103,14 @@ public class SpamView {
 		deleteSpamBtn = new Button("Delete Spam");
 		lowerBar.getChildren().addAll(spamLbl, spacer1, deleteSpamBtn);
 		
-		//root Borderpane
+		//PD root Borderpane
 		root = new BorderPane();
 		root.setId("root");
 		root.setTop(topBar);
 		root.setCenter(table);
 		root.setBottom(lowerBar);
 		
-		//create scene
+		//PD create scene
 		Scene scene = new Scene(root);
 		stage.setMaximized(true);
 
@@ -123,7 +120,7 @@ public class SpamView {
 
 	}
 
-	//start method
+	//PD start method
 	public void start() {
 		stage.show();
 	}
