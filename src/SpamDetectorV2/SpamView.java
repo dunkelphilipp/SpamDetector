@@ -31,7 +31,7 @@ public class SpamView {
 	protected Button deleteBtn;
 	protected Button deleteAllBtn;
 	protected Button checkBtn;
-	protected Button openEmail;
+
 	
 	//center
 	protected TableView<EMail> table;
@@ -58,9 +58,9 @@ public class SpamView {
 		deleteBtn = new Button("Delete");
 		deleteAllBtn = new Button("Delete all");
 		checkBtn = new Button("Check Spam");
-		openEmail = new Button("Open E-Mail");
+
 		
-		topBar.getChildren().addAll(addBtn, deleteBtn, deleteAllBtn, checkBtn, openEmail);
+		topBar.getChildren().addAll(addBtn, deleteBtn, deleteAllBtn, checkBtn);
 		
 		//PD center elements
 		table = new TableView<EMail>();

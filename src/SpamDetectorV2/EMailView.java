@@ -57,8 +57,10 @@ public class EMailView {
         inhalt.add(s, 1, 0);
         inhalt.add(r, 1, 1);
         inhalt.add(sub, 1, 2);
-
-      ScrollPane contentPane = new ScrollPane();
+        
+        //HH / EK
+        
+        ScrollPane contentPane = new ScrollPane();
         Text contentText = new Text(b.getText());
         contentText.setWrappingWidth(800); // Set the preferred width for the content text
         contentPane.setContent(browser);
@@ -67,28 +69,20 @@ public class EMailView {
         contentPane.setPrefViewportHeight(400); // Set the preferred height for the content text
         contentPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         contentPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-        VBox vbox = new VBox(inhalt, contentPane);
+       
+        VBox vbox = new VBox(inhalt, browser);
         root.setCenter(vbox);
 
         stage.setTitle("E-Mail");
 
-        double contentWidth = inhalt.getBoundsInParent().getWidth();
-        double contentHeight = inhalt.getBoundsInParent().getHeight();
-
-        double windowWidth = contentWidth + 50;
-        double windowHeight = contentHeight + 300; 
-
-        stage.setWidth(windowWidth);
-        stage.setHeight(windowHeight);
-
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("Spam.css").toExternalForm());
-        stage.sizeToScene();
         stage.setScene(scene);
-
     }
+    
     public void start() {
+        stage.showingProperty().addListener((observable, oldValue, newValue) -> stage.setX(0));
+        stage.showingProperty().addListener((observable, oldValue, newValue) -> stage.setY(0));
         stage.show();
     }
 }

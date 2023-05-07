@@ -27,14 +27,14 @@ public class SpamController implements EventHandler<ActionEvent>{
 		view.deleteAllBtn.setDisable(true);
 		view.checkBtn.setDisable(true);
 		view.deleteSpamBtn.setDisable(true);
-		view.openEmail.setDisable(true);
+
 		
 		//EK set disabled Button Style
 		view.deleteBtn.setStyle("-fx-border-color: transparent;");
 		view.deleteAllBtn.setStyle("-fx-border-color: transparent;");
 		view.checkBtn.setStyle("-fx-border-color: transparent;");
 		view.deleteSpamBtn.setStyle("-fx-border-color: transparent;");
-		view.openEmail.setStyle("-fx-border-color: transparent;");
+
 		
 		//EK set Buttons on handler 
 		view.addBtn.setOnAction(this::handle);
@@ -42,7 +42,7 @@ public class SpamController implements EventHandler<ActionEvent>{
 		view.deleteAllBtn.setOnAction(this::handle);
 		view.checkBtn.setOnAction(this::handle);
 		view.deleteSpamBtn.setOnAction(this::handle);
-		view.openEmail.setOnAction(this::handle);
+
 	}
 
 	//EK / PD handle method
@@ -63,7 +63,6 @@ public class SpamController implements EventHandler<ActionEvent>{
 				view.deleteBtn.setDisable(false);
 				view.deleteAllBtn.setDisable(false);
 				view.checkBtn.setDisable(false);
-				view.openEmail.setDisable(false);
 				view.deleteSpamBtn.setDisable(false);
 			}
 			
@@ -79,7 +78,6 @@ public class SpamController implements EventHandler<ActionEvent>{
 					view.deleteBtn.setDisable(true);
 					view.deleteAllBtn.setDisable(true);
 					view.checkBtn.setDisable(true);
-					view.openEmail.setDisable(true);
 					view.deleteSpamBtn.setDisable(true);
 				}
 		    }
@@ -92,7 +90,6 @@ public class SpamController implements EventHandler<ActionEvent>{
 			view.deleteBtn.setDisable(true);
 			view.deleteAllBtn.setDisable(true);
 			view.checkBtn.setDisable(true);
-			view.openEmail.setDisable(true);
 			view.deleteSpamBtn.setDisable(true);
 			
 		//PD check if Spam
@@ -101,7 +98,8 @@ public class SpamController implements EventHandler<ActionEvent>{
 			view.table.refresh();
 			
 		//EK delete the Spammails
-		} else if (b == view.deleteSpamBtn) {
+		}
+		else if (b == view.deleteSpamBtn) {
 			ArrayList<EMail> spamMails = new ArrayList<>();
 			for (EMail m : model.mails) {
 			    if (m.isSpam()) {
@@ -111,14 +109,19 @@ public class SpamController implements EventHandler<ActionEvent>{
 			model.mails.removeAll(spamMails);
 			view.table.refresh();
 			
+		} 
 		//EK Show complete EMail
-		} else if (b == view.openEmail) {EMail selectedRow = ((TableView<EMail>) view.table).getSelectionModel().getSelectedItem();
-			    if (selectedRow != null) {
-			        int index = ((TableView<EMail>) view.table).getItems().indexOf(selectedRow);
-			        EMailView emailView = new EMailView(new Stage(), model, index);
-			        emailView.start();
-			    }
-			}
+		view.table.setOnMouseClicked(event -> {
+		    if (event.getClickCount() == 2) { 
+		        EMail selectedRow = view.table.getSelectionModel().getSelectedItem();
+		        if (selectedRow != null) {
+		            int index = view.table.getItems().indexOf(selectedRow);
+		            EMailView emailView = new EMailView(new Stage(), model, index);
+		            emailView.start();
+		        }
+		    }
+		});
 	}
+	
 }
 

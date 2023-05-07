@@ -45,7 +45,7 @@ public class SpamModel {
 	public File getSelectedFile() {
 	    return selectedFile;
 	}
-	//EK
+	//HH / EK
 	public void add() {
 		 try {
 		        BufferedReader reader = new BufferedReader(new FileReader(selectedFile));

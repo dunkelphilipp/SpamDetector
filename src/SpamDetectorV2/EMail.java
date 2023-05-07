@@ -39,6 +39,7 @@ public class EMail {
         return subject;
     } 
     public Boolean isSpam() {
+    
 		return spam;
 	}
 	public void setSpam(Boolean spam) {
@@ -89,7 +90,7 @@ public class EMail {
 //		return content;	
 //	}
 	
-	//EK Method to read EMail content from file 
+	//HH&EK Method to read EMail content from file 
 	public static EMail fromFile(String fileName) {
 	    StringBuilder textEmail = new StringBuilder();
 

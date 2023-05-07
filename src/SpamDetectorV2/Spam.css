@@ -1,33 +1,64 @@
-/*PD CSS for Spamdetector*/
-
-/* standard Button properties */
+/* Standard-Button-Eigenschaften /hh*/
 .button {
 	-fx-pref-width: 100px;
 	-fx-pref-height: 25px;
+	-fx-background-color: #2196F3; /* Dunkelblau */
+	-fx-text-fill: white; /* Weisse Schrift */
 }
 
-/* table cells */
+/* Tabellenzellen */
 .table-row-cell {
+	-fx-background-color: #F5F5F5; /* Hellgrau */
 	-fx-border-color: black;
 	-fx-border-width: 0 0 1 0;
+	-fx-cell-size: 30px; /* Grössere Zeilenabstände */
 }
 .table-view {
 	-fx-table-cell-border-color: black;
+	-fx-background-color: white; /* Hintergrundfarbe der Tabelle */
 }
 
-/* root properties */
+/* table cell properties */
+.table-cell {
+    -fx-border-color: #dddddd;
+    -fx-border-width: 0.5px;
+}
+
+/* table row properties */
+.table-row-cell {
+    -fx-background-color: #f8f8f8;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background: #f8f8f8, white;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 0.5px;
+    -fx-padding: 0.166667em; /* 2px */
+	-fx-pref-height: 30px;
+}
+
+/* table column header properties */
+.table-column-header {
+    -fx-background-color: #dddd;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background: #f8f8f8, white;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 0.5px;
+    -fx-padding: 0.166667em; /* 2px */
+}
+
+
+/* Root-Eigenschaften */
 #root {
 	-fx-background-color: white;
 	-fx-pref-width: 1000px;
 	-fx-pref-height: 600px;
 }
 
-/* topBar properties */
+/* Top-Bar-Eigenschaften */
 #topBar {
 	-fx-padding: 10px 10px;
 }
 
-/* lowerBar properties */
+/* Lower-Bar-Eigenschaften */
 #lowerBar {
 	-fx-padding: 10px 10px;
 	-fx-alligment: center;
@@ -36,7 +67,7 @@
 	-fx-font-size: 18px;
 }
 
-/* Table column properties */
+/* Tabellenspalten-Eigenschaften */
 #senderClm {
 	-fx-pref-width: 350px;
 }
@@ -50,7 +81,23 @@
 	-fx-pref-width: 100px;
 }
 
-/* change text color */
-.root {
-	-fx-text-fill: black;
+/* Hover-Effekte */
+.button:hover {
+	-fx-background-color: #1565C0; /* Dunkleres Blau */
 }
+
+.table-row-cell:hover {
+	-fx-background-color: #E3F2FD; /* Helleres Blau */
+}
+
+/* Klick-Effekte */
+.button:pressed {
+	-fx-background-color: #0D47A1; /* Noch dunkleres Blau */
+}
+
+.table-row-cell:selected {
+	-fx-background-color: #BDBDBD; /* Grau */
+	-fx-border-color: blue;
+}
+
+
