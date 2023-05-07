@@ -112,14 +112,13 @@ public class SpamController implements EventHandler<ActionEvent>{
 			view.table.refresh();
 			
 		//EK Show complete EMail
-		} else if(b == view.openEmail) {
-		    view.openEmail.setOnAction(event ->{
-		        EMail selectedRow = ((TableView<EMail>) view.table).getSelectionModel().getSelectedItem();
-		        int index = ((TableView<EMail>) view.table).getItems().indexOf(selectedRow);
-		        EMailView emailView = new EMailView(new Stage(), model, index);
-		        emailView.start();
-		    });
-		}
+		} else if (b == view.openEmail) {EMail selectedRow = ((TableView<EMail>) view.table).getSelectionModel().getSelectedItem();
+			    if (selectedRow != null) {
+			        int index = ((TableView<EMail>) view.table).getItems().indexOf(selectedRow);
+			        EMailView emailView = new EMailView(new Stage(), model, index);
+			        emailView.start();
+			    }
+			}
 	}
 }
 
