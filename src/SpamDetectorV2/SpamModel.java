@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.text.Document;
 
@@ -19,14 +21,17 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class SpamModel {
+
     EMail mail; 
     ObservableList<EMail> mails = FXCollections.observableArrayList();
-    private SpamView view;
-    private SpamModel model;
+    SpamView view;
+    SpamModel model;
 	private String textFileName;
+	String boundary1 = "0000000000000000000000000000000000000000000000000000000000000000000";
+
 	private File selectedFile;
 
-	//EK Methode to open eml File from System
+	//EK
 	public void chooseEmlFile() {
 	    FileChooser fileChooser = new FileChooser();
 	    fileChooser.setTitle("Open EML File");
@@ -37,38 +42,56 @@ public class SpamModel {
 	    selectedFile = fileChooser.showOpenDialog(null);
 	}
 
-	//EK Getter 
 	public File getSelectedFile() {
 	    return selectedFile;
 	}
-
-	//EK Method to add file into table
+	//EK
 	public void add() {
 		 try {
 		        BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
 		        String line;
 		        StringBuilder text = new StringBuilder();
+			 	boolean isHtmlContent = false;
 
-		        while ((line = reader.readLine()) != null) {
-		            //Escape special characters in the line
-		            line = line.replaceAll("&", " ")
-		                    .replaceAll("<", " ")
-		                    .replaceAll(">", " ");
+			 while ((line = reader.readLine()) != null) {
+				 // Escape special characters in the line
+				/* line = line.replaceAll("&", " ")
+						 .replaceAll("<", " ")
+						 .replaceAll(">", " ");
+					*/
 
-		            //Append the line to the text
-		            text.append(line).append("\n");
+				 Pattern boundaryPattern = Pattern.compile("boundary=\"(.+?)\"");
+				 Matcher boundaryMatcher = boundaryPattern.matcher(line);
+				 if (boundaryMatcher.find()) {
+					String boundary = boundaryMatcher.group(1);
+					 this.boundary1 = boundary;
+				 }
 
-		            //Check if line contains "From:", "Subject:", or "To:"
-		            if (line.contains("From:") || line.contains("Subject:") || line.contains("To:")) {
-		                System.out.println(line);
-		            }
-		        }
 
-		        reader.close();
+				 // Check if line contains "From:", "Subject:", or "To:"
+				 if (line.contains("From:") || line.contains("Subject:") || line.contains("To:")) {
+					 System.out.println(line);
+					 text.append(line); text.append("\n");
+				 }
+				 if (line.startsWith("Content-Type: text/html")) {
+					 isHtmlContent = true;
+				 } else if (line.startsWith("Content-Type:")) {
+					 isHtmlContent = false;
+				 } else if (isHtmlContent) {
+				 	if ( !line.contains("Content-Transfer-Encoding: quoted-printable")) {
+				 		if (!line.contains(this.boundary1)){
+							text.append(line.replaceAll("=([A-Fa-f0-9]{2})", "%$1"));
+							// text.append(line);
+							text.append("\n");
+						}
+					 }
+				 }
+			 }
+			 reader.close();
 		        
 		        String textString = text.toString();
-		        
-		        //Write the text to a file
+		
+		        // Write the text to a file
 		        File textFile = new File(selectedFile.getName() + ".txt");
 		        FileWriter writer = new FileWriter(textFile);
 		        writer.write(textString);
@@ -80,6 +103,7 @@ public class SpamModel {
 	            	
 	            	
 	                EMail email = EMail.fromFile(textFileName);
+	              //  email.removeHtmlTags();
 	                mails.add(email);
 
 	           } catch (Exception e) {
@@ -92,16 +116,11 @@ public class SpamModel {
 		    }
 	}
 
-	//EK eml to HTML method
-    public String emlToHtml() {
-    	return null;
-    }
-
     //PD Check if Spam and set a spamscore
     public void checkSpam(){
         Blacklist blacklist = new Blacklist("blacklist-spam-detector1.csv");
-        ArrayList<String> keywords = blacklist.readFile(); //blacklist keywords
-        ArrayList<String> matchingWords = new ArrayList<String>(); //Matching words EMail - Blacklist
+        ArrayList<String> keywords = blacklist.readFile();
+        ArrayList<String> matchingWords = new ArrayList<String>();
         //Zur Kontrolle 
         for(String s : keywords) {
         	System.out.print(s + " ");
@@ -109,8 +128,8 @@ public class SpamModel {
         
         for (EMail m : mails) {
         	int spamScore = 0;
-            ArrayList<String> content = m.getContent(); //EMail subject, sender, body 
-            //zur Kontrolle 
+            ArrayList<String> content = m.getContent();
+            //Zur Kontrolle 
             for(String s : content) {
             	System.out.print(s + " ");
             	System.out.println();
@@ -124,7 +143,7 @@ public class SpamModel {
             	}
             }
             m.setSpamScore(spamScore);
-            m.setSpam(spamScore > 0);//Spamscore > 1 | spam = true 
+            m.setSpam(spamScore > 0);
             //Zur Kontrolle 
             System.out.println(m.getSpamScore());
             System.out.println(m.isSpam());
@@ -134,7 +153,6 @@ public class SpamModel {
         }
     }
         
-    //EK getMailList method
     public ObservableList<EMail> getMailList(){
     	return this.mails;
     }

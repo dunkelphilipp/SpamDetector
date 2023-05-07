@@ -60,6 +60,7 @@ public class EMail {
 	}
 
 	//HH Method to store Mail content in Arraylist
+
 	public ArrayList<String> getContent() {
 		ArrayList<String> content = new ArrayList<String>();
 		if (sender != null) {
@@ -92,9 +93,9 @@ public class EMail {
 	public static EMail fromFile(String fileName) {
 	    StringBuilder textEmail = new StringBuilder();
 
-	    //Read file
 	    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
 	        String line;
+
 	        while ((line = reader.readLine()) != null) {
 	            textEmail.append(line).append("\n"); // add newline character to preserve line breaks
 	        }
@@ -102,13 +103,13 @@ public class EMail {
 	        e.printStackTrace();
 	    }
 
-	    //extract EMail content
+	    // extract email fields and content from textEmail
 	    String sender = "";
 	    String recipient = "";
 	    String subject = "";
 	    String body = "";
 
-	    //Add EMail content to the right String
+	    
 	    String[] lines = textEmail.toString().split("\n");
 	    for (String line : lines) {
 	        if (line.startsWith("From:")) {
@@ -118,15 +119,18 @@ public class EMail {
 	        } else if (line.startsWith("Subject:")) {
 	            subject = line.substring(9).trim();
 	        } else {
+	        	
 	        	body += line + "\n"; // 
 	        }
 	    }
-	    
-	    //print to contoroll content 
 	    System.out.println(sender);
 	    System.out.println(subject);
 	    System.out.println(body);
 
 	    return new EMail(sender, recipient, subject, body);
 	}
+	public void removeHtmlTags() {
+	    body = body.replaceAll("\\<.*?\\>", "");
+	}
+
 }
